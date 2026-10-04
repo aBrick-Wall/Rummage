@@ -1,4 +1,12 @@
-import { mkdirSync, mkdtempSync, rmSync, symlinkSync, utimesSync, writeFileSync } from 'node:fs'
+import {
+  mkdirSync,
+  mkdtempSync,
+  realpathSync,
+  rmSync,
+  symlinkSync,
+  utimesSync,
+  writeFileSync
+} from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
@@ -32,7 +40,8 @@ async function addAndScan() {
 }
 
 beforeEach(() => {
-  root = mkdtempSync(join(tmpdir(), 'rummage-lib-'))
+  // Windows temp dirs can be 8.3 short names (RUNNER~1); the provider stores canonical paths.
+  root = realpathSync.native(mkdtempSync(join(tmpdir(), 'rummage-lib-')))
   db = openDatabase(':memory:')
   prober = new FakeProber()
   provider = makeProvider()
@@ -250,7 +259,7 @@ describe('LocalLibraryProvider playback', () => {
 
   it('streams only files that are inside the library and allow-listed', async () => {
     touch('a.mp4')
-    const secret = mkdtempSync(join(tmpdir(), 'rummage-secret-'))
+    const secret = realpathSync.native(mkdtempSync(join(tmpdir(), 'rummage-secret-')))
     try {
       writeFileSync(join(secret, 'secret.mp4'), 'secret')
       writeFileSync(join(secret, 'passwd'), 'secret')
