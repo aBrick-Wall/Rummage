@@ -1,0 +1,469 @@
+We are starting a new application called **Rummage**, published by **Dumpsterlight Digital**.
+
+Rummage is a legitimate, user-controlled desktop media application for browsing and playing:
+
+- Personal media stored locally
+- Personal media stored on NAS/home media systems
+- Authorized/free Internet video sources
+- Future third-party media-provider plugins
+
+Rummage itself is not a video-downloading application and this project must not add piracy-specific functionality, DRM circumvention, or downloading from services that prohibit it.
+
+## Product language
+
+Product: Rummage  
+Publisher: Dumpsterlight Digital
+
+Important UI terminology:
+
+- Search = **Rummage**
+- Personal media library = **Your Stash**
+- Connect local/NAS media = **Add Your Stash**
+- Free legitimate Internet media will eventually be called **Free Finds**
+- Saved/watch-later content may eventually be called **Watch Pile**
+
+Do not over-theme every piece of UI. The application should remain polished and understandable.
+
+## Technology
+
+Build the initial desktop application using:
+
+- Electron
+- React
+- TypeScript
+- Vite or the project's appropriate Electron/Vite integration
+- SQLite for local library metadata
+
+Security requirements:
+
+- Renderer processes must remain sandboxed.
+- Do not enable Node integration in the React renderer.
+- Use context isolation.
+- Expose only narrow, validated APIs through preload/contextBridge.
+- Do not expose arbitrary ipcRenderer methods to the frontend.
+- Treat paths, media metadata, URLs, and future plugin output as untrusted input.
+- Do not execute third-party plugin code in the Electron renderer.
+- Prefer a custom application/media protocol over unrestricted file:// access where appropriate.
+
+## Architecture requirement
+
+Rummage must be provider-oriented from the beginning.
+
+Define a core provider abstraction resembling:
+
+RummageProvider
+- manifest
+- getCatalog(...)
+- search(query, ...)
+- getItem(id)
+- resolvePlayback(id)
+- optional capabilities
+
+Do not over-engineer the interface yet. It needs enough abstraction that future providers can represent:
+
+- Local filesystem libraries
+- NAS libraries
+- Jellyfin or similar media servers
+- Public/free streaming providers
+- Kodi compatibility
+- Native Rummage plugins
+
+The first implementation must be:
+
+LocalLibraryProvider
+
+The React UI should consume normalized media objects from the provider/core layer rather than directly interrogating the filesystem.
+
+Define normalized domain models for at least:
+
+MediaItem
+MediaSource
+MediaArtwork
+PlaybackSource
+ProviderManifest
+
+Design these so that a MediaItem could eventually have multiple playback sources from multiple providers.
+
+## Phase 1 functionality
+
+Implement only this vertical slice:
+
+1. Application launches successfully on Windows.
+2. Home screen displays Rummage branding.
+3. Home screen includes **Your Stash**.
+4. User can click **Add Your Stash**.
+5. User can select a local directory.
+6. Directory selection may also work with a network share or mapped NAS path if Windows exposes it through the normal filesystem.
+7. Scan supported video files recursively.
+8. Do not scan arbitrary file types.
+9. Record file identity/path plus basic filesystem information.
+10. Use ffprobe, if available/configured by the project, to obtain media metadata including:
+   - duration
+   - container
+   - video codec
+   - audio codec
+   - width
+   - height
+   - frame rate where available
+11. Save indexed metadata to SQLite.
+12. Reopening the application should retain the library without requiring a fresh scan.
+13. Display discovered videos in a clean media grid.
+14. Include a search field whose user-facing label/placeholder uses the word **Rummage**.
+15. Search locally indexed titles/filenames.
+16. Selecting a media item opens a detail/player view.
+17. Play formats Chromium supports directly.
+18. If the media format/codec cannot currently be played, present a clean unsupported-format state rather than crashing.
+19. Do not implement transcoding yet.
+20. Do not implement remote streaming yet.
+
+## Media identity
+
+Do not assume filename alone is globally unique.
+
+Create a design that can later support stable media IDs and deduplication. For Phase 1, a canonical path plus filesystem metadata is acceptable if isolated behind an implementation that can later be replaced.
+
+## Database
+
+Use a straightforward schema.
+
+At minimum persist:
+
+- configured libraries
+- media items
+- scanned files/media sources
+- metadata
+- scan timestamps
+
+Do not introduce a cloud account system.
+
+Everything in Phase 1 must work locally.
+
+## Playback
+
+Keep playback behind a playback abstraction.
+
+A local file should resolve through LocalLibraryProvider into a PlaybackSource.
+
+Do not make the React UI construct filesystem URLs itself.
+
+## Future architecture
+
+Do NOT implement these yet, but preserve architectural room for:
+
+- SMB/NFS discovery or connections
+- Rummage Home Server
+- remote personal streaming
+- Jellyfin
+- Kodi compatibility
+- Stremio-style providers
+- public/free online catalogs
+- HLS/DASH
+- FFmpeg remux/transcode
+- subtitles
+- metadata enrichment
+- accounts/watch-state sync
+- third-party plugin repositories
+- sideloaded providers
+- plugin permission manifests
+- plugin sandboxing
+
+Do not build placeholder complexity for these features beyond sensible interfaces.
+
+## Kodi
+
+Do not embed Kodi in Phase 1.
+
+Eventually Kodi should be treated as an adapter/provider compatibility system rather than allowing Kodi internals to infect the main Rummage architecture.
+
+## Development philosophy
+
+Build a small working vertical slice instead of a large incomplete framework.
+
+Before editing:
+
+1. Inspect the repository.
+2. Report the existing structure.
+3. Propose the exact files/components/modules you intend to add.
+4. Identify any architectural or security concerns.
+5. Then implement Phase 1 in coherent increments.
+
+After implementation:
+
+- Run linting.
+- Run type checks.
+- Run automated tests.
+- Build/package the application if the repository supports it.
+- Fix failures rather than merely reporting them.
+- Summarize what was implemented and what remains intentionally deferred.
+
+Do not silently broaden scope beyond Phase 1.
+
+
+## Dumpsterlight Digital visual design
+
+Rummage must visually belong to the existing Dumpsterlight Digital / Raccoonware family.
+
+Do not style the application as a generic Netflix, Plex, Jellyfin, or Kodi clone.
+
+The design should inherit the Dumpsterlight Digital visual language while adapting it to a dark living-room/media application.
+
+### Core palette
+
+Use these Dumpsterlight brand colors as the starting design tokens:
+
+- Dumpster Charcoal: `#1E1E1E`
+- Raccoon Lime: `#D4FF00`
+- Dumpster Orange: `#FF7A00`
+- Connected Green: `#00C853`
+- Off White: `#F2F2F2`
+
+Create semantic design tokens rather than scattering raw colors throughout components.
+
+Examples:
+
+- background.primary
+- background.elevated
+- surface.card
+- text.primary
+- text.muted
+- accent.primary
+- accent.secondary
+- status.connected
+- border.subtle
+- focus.ring
+
+### Overall feel
+
+Rummage should feel like a polished Dumpsterlight Digital product built for a television/media environment.
+
+Desired character:
+
+- dark
+- warm
+- playful
+- slightly industrial
+- premium rather than childish
+- raccoon-themed without becoming a novelty interface
+- comfortable to use from a couch
+- strong artwork-first media presentation
+
+Avoid excessive visual clutter, fake grime, distressed text, or gimmicks that reduce readability.
+
+The joke is in the language and mascot.
+
+The application itself should still feel professionally designed.
+
+### Brand hierarchy
+
+Display:
+
+**Rummage**
+
+with secondary branding:
+
+**by Dumpsterlight Digital**
+
+and optionally:
+
+**Raccoonware**
+
+Do not make Dumpsterlight Digital larger than the Rummage product name.
+
+### Mascot direction
+
+Rummage's mascot should be a Dumpsterlight raccoon watching television.
+
+Concept:
+
+A raccoon sitting comfortably in front of a glowing television, holding or eating popcorn or chips, with a remote nearby.
+
+The mascot may appear in:
+
+- onboarding
+- empty libraries
+- loading states
+- first-run screen
+- About screen
+- occasional tasteful illustrations
+
+Do not permanently occupy large amounts of media browsing space with mascot artwork.
+
+### Main navigation
+
+Initial navigation language should include:
+
+Home
+
+Your Stash
+
+Free Finds
+
+Sources
+
+Watch Pile
+
+Settings
+
+The search interaction should prominently use:
+
+**Rummage**
+
+Example placeholder:
+
+**Rummage for something to watch…**
+
+### Home screen
+
+Design the home screen around horizontal media shelves and large artwork.
+
+Potential sections:
+
+Continue Watching
+
+Your Stash
+
+Recently Dug Up
+
+Free Finds
+
+Watch Pile
+
+Recently Added
+
+Do not populate features that have not yet been implemented.
+
+For Phase 1, only display sections backed by real application data.
+
+### Media cards
+
+Media artwork should remain the visual focus.
+
+Cards should:
+
+- have gently rounded corners
+- use subtle elevation
+- use restrained Dumpsterlight glow/focus effects
+- display clear hover/focus states
+- support keyboard navigation
+- later support controller/TV navigation
+
+When a media card receives focus, use the Dumpsterlight lime accent rather than a generic blue selection ring.
+
+### Your Stash
+
+The personal-media area should use the heading:
+
+**Your Stash**
+
+Primary action:
+
+**Add Your Stash**
+
+Supporting language may say:
+
+Connect a folder, media PC, or network storage containing media you own or have permission to access.
+
+For Phase 1, the actual implementation only needs local filesystem folders and filesystem-visible mapped network locations.
+
+### Source status
+
+Future connected providers should use clear status indicators.
+
+Examples:
+
+Connected  
+Scanning  
+Offline  
+Needs Attention
+
+Use Dumpsterlight green for healthy connected states.
+
+Do not rely on color alone. Include text or icons for accessibility.
+
+### Empty states
+
+Empty screens should have personality without becoming confusing.
+
+Example for a new installation:
+
+**Your stash is looking suspiciously empty.**
+
+Add a folder to start rummaging.
+
+Button:
+
+**Add Your Stash**
+
+Example search empty state:
+
+**Nothing turned up in that rummage.**
+
+Try another title or check your sources.
+
+### Motion
+
+Use restrained animation.
+
+Good:
+
+- card focus transitions
+- subtle television glow
+- loading indicator
+- small mascot animation
+- smooth shelf movement
+
+Avoid:
+
+- constant background motion
+- excessive particles
+- unnecessary bouncing UI
+- animations that interfere with video browsing
+
+### Accessibility
+
+Branding must not compromise usability.
+
+Maintain:
+
+- sufficient contrast
+- visible focus states
+- keyboard navigation
+- scalable text
+- accessible labels
+- reduced-motion support
+
+### TV-friendly foundations
+
+Even though Phase 1 is desktop-first, avoid UI decisions that would make eventual television clients difficult.
+
+Prefer:
+
+- large clickable targets
+- clear spatial navigation
+- legible typography at distance
+- media shelves
+- obvious focused-card state
+- minimal tiny controls
+
+### Design implementation
+
+Build a reusable Dumpsterlight design-token layer and shared components rather than styling every screen independently.
+
+At minimum establish reusable:
+
+- Button
+- Card
+- MediaCard
+- SectionHeader
+- SearchField
+- Badge
+- EmptyState
+- Modal
+- NavigationItem
+- StatusIndicator
+
+The goal is that future Rummage screens automatically inherit Dumpsterlight Digital styling instead of repeatedly recreating it.
+
+Do not broaden application functionality while implementing the theme.
+
+Use https://github.com/aBrick-Wall/Rummage 
