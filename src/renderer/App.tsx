@@ -72,11 +72,20 @@ function Shell() {
         searchRef.current?.select()
         return
       }
+      if (
+        event.key === 'Escape' &&
+        !event.defaultPrevented &&
+        event.target instanceof Element &&
+        !event.target.closest('video, input, [aria-modal="true"]')
+      ) {
+        closeItem()
+        return
+      }
       handleArrowNavigation(event)
     }
     window.addEventListener('keydown', onKeyDown)
     return () => window.removeEventListener('keydown', onKeyDown)
-  }, [])
+  }, [closeItem])
 
   const itemId = route.name === 'item' ? route.item.id : ''
   const viewKey = itemId ? `item:${itemId}` : route.name

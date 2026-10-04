@@ -146,6 +146,17 @@ describe('App', () => {
     expect(await screen.findByRole('heading', { name: 'Recently Added' })).toBeInTheDocument()
   })
 
+  it('goes back from an item with Escape', async () => {
+    const api = makeApi({ items: [makeItem('1', 'Alpha')], connections: [connection] })
+    render(<App api={api} />)
+    await userEvent.click(
+      (await screen.findAllByRole('button', { name: /^Alpha/ }))[0] as HTMLElement
+    )
+    expect(await screen.findByRole('heading', { level: 1, name: 'Alpha' })).toBeInTheDocument()
+    await userEvent.keyboard('{Escape}')
+    expect(await screen.findByRole('heading', { name: 'Recently Added' })).toBeInTheDocument()
+  })
+
   it('rummages local items and shows the playful empty search state', async () => {
     const api = makeApi({
       items: [makeItem('1', 'Alpha'), makeItem('2', 'Beta')],
