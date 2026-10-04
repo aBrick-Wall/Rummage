@@ -1,0 +1,30 @@
+.rm-card {
+  background: var(--surface-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+}
+
+.rm-card--interactive {
+  display: block;
+  padding: 0;
+  text-align: left;
+  color: inherit;
+  cursor: pointer;
+  transition:
+    transform var(--motion-base) var(--motion-ease),
+    box-shadow var(--motion-base) var(--motion-ease),
+    background-color var(--motion-base) var(--motion-ease);
+}
+
+.rm-card--interactive:hover {
+  background: var(--surface-card-hover);
+  transform: translateY(-2px);
+}
+
+.rm-card--interactive:focus-visible {
+  outline: none;
+  border-color: var(--focus-ring);
+  box-shadow: var(--shadow-card-focus);
+  transform: translateY(-2px) scale(1.02);
+}

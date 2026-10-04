@@ -1,0 +1,95 @@
+.rm-media-card {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  overflow: hidden;
+  border-radius: var(--radius-md);
+}
+
+.rm-media-card--shelf {
+  flex: 0 0 var(--shelf-card-width);
+  width: var(--shelf-card-width);
+  scroll-snap-align: start;
+}
+
+.rm-media-card__art {
+  position: relative;
+  display: grid;
+  place-items: center;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: linear-gradient(145deg, var(--art-from), var(--art-to));
+}
+
+.rm-media-card__art[data-palette='1'] {
+  --art-from: var(--art-1-from);
+  --art-to: var(--art-1-to);
+}
+.rm-media-card__art[data-palette='2'] {
+  --art-from: var(--art-2-from);
+  --art-to: var(--art-2-to);
+}
+.rm-media-card__art[data-palette='3'] {
+  --art-from: var(--art-3-from);
+  --art-to: var(--art-3-to);
+}
+.rm-media-card__art[data-palette='4'] {
+  --art-from: var(--art-4-from);
+  --art-to: var(--art-4-to);
+}
+.rm-media-card__art[data-palette='5'] {
+  --art-from: var(--art-5-from);
+  --art-to: var(--art-5-to);
+}
+
+.rm-media-card__art img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.rm-media-card__glyph {
+  font-family: var(--font-display);
+  font-size: 4.5rem;
+  font-weight: 800;
+  line-height: 1;
+  color: color-mix(in srgb, var(--text-primary) 82%, transparent);
+  text-shadow: 0 0.25rem 1.5rem color-mix(in srgb, var(--background-sunken) 60%, transparent);
+}
+
+.rm-media-card__badges {
+  position: absolute;
+  inset: auto var(--space-2) var(--space-2) var(--space-2);
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.rm-media-card__meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: var(--space-3) var(--space-4) var(--space-4);
+  min-width: 0;
+}
+
+.rm-media-card__title {
+  font-weight: 650;
+  font-size: var(--text-size-md);
+  color: var(--text-primary);
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow-wrap: anywhere;
+}
+
+.rm-media-card__sub {
+  font-size: var(--text-size-sm);
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

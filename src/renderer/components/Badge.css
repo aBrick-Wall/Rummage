@@ -1,0 +1,37 @@
+.rm-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.125rem var(--space-2);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-size-xs);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1.5;
+  white-space: nowrap;
+}
+
+.rm-badge--neutral {
+  background: var(--surface-card-hover);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-primary);
+}
+
+.rm-badge--accent {
+  background: var(--accent-primary);
+  color: var(--text-on-accent);
+}
+
+.rm-badge--warning {
+  background: var(--accent-secondary);
+  color: var(--text-on-accent);
+}
+
+.rm-badge--success {
+  background: var(--status-connected);
+  color: var(--text-on-accent);
+}
+
+.rm-badge--overlay {
+  background: var(--background-scrim);
+  color: var(--text-primary);
+}

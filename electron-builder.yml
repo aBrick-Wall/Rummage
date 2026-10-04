@@ -1,0 +1,29 @@
+appId: digital.dumpsterlight.rummage
+productName: Rummage
+copyright: Copyright © Dumpsterlight Digital
+directories:
+  output: release
+  buildResources: build
+files:
+  - out/**
+  - package.json
+  - '!**/*.map'
+asar: true
+npmRebuild: false
+win:
+  target:
+    - target: nsis
+      arch: [x64]
+  icon: build/icon.png
+nsis:
+  oneClick: false
+  allowToChangeInstallationDirectory: true
+  perMachine: false
+linux:
+  target: dir
+  icon: build/icon.png
+  category: AudioVideo
+mac:
+  target: dir
+  icon: build/icon.png
+  category: public.app-category.video

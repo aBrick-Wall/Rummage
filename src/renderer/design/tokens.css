@@ -1,0 +1,121 @@
+/*
+ * Dumpsterlight Digital design tokens.
+ *
+ * Layer 1 - brand primitives: the only place raw brand colors are written.
+ * Layer 2 - semantic tokens: what components consume. Components must never use a raw color.
+ * Retheming (or a TV-scale variant) means changing this file only.
+ */
+:root {
+  /* ---- Layer 1: Dumpsterlight brand primitives ---------------------------------------- */
+  --dl-charcoal: #1e1e1e;
+  --dl-lime: #d4ff00;
+  --dl-orange: #ff7a00;
+  --dl-green: #00c853;
+  --dl-offwhite: #f2f2f2;
+  --dl-black: #000000;
+
+  /* ---- Layer 2: semantic tokens -------------------------------------------------------- */
+  --background-primary: var(--dl-charcoal);
+  --background-sunken: color-mix(in srgb, var(--dl-charcoal) 82%, var(--dl-black));
+  --background-elevated: color-mix(in srgb, var(--dl-charcoal) 94%, var(--dl-offwhite));
+  --background-scrim: color-mix(in srgb, var(--dl-black) 72%, transparent);
+
+  --surface-card: color-mix(in srgb, var(--dl-charcoal) 90%, var(--dl-offwhite));
+  --surface-card-hover: color-mix(in srgb, var(--dl-charcoal) 83%, var(--dl-offwhite));
+  --surface-input: color-mix(in srgb, var(--dl-charcoal) 86%, var(--dl-offwhite));
+  --surface-warm: color-mix(in srgb, var(--dl-charcoal) 93%, var(--dl-orange));
+
+  --text-primary: var(--dl-offwhite);
+  --text-muted: color-mix(in srgb, var(--dl-offwhite) 68%, var(--dl-charcoal));
+  --text-subtle: color-mix(in srgb, var(--dl-offwhite) 52%, var(--dl-charcoal));
+  --text-on-accent: var(--dl-charcoal);
+
+  --accent-primary: var(--dl-lime);
+  --accent-primary-hover: color-mix(in srgb, var(--dl-lime) 86%, var(--dl-offwhite));
+  --accent-secondary: var(--dl-orange);
+
+  --status-connected: var(--dl-green);
+  --status-scanning: var(--dl-lime);
+  --status-attention: var(--dl-orange);
+  --status-offline: var(--text-muted);
+
+  --border-subtle: color-mix(in srgb, var(--dl-offwhite) 12%, transparent);
+  --border-strong: color-mix(in srgb, var(--dl-offwhite) 28%, transparent);
+  --focus-ring: var(--dl-lime);
+  --focus-glow: color-mix(in srgb, var(--dl-lime) 38%, transparent);
+  --tv-glow: color-mix(in srgb, var(--dl-orange) 22%, transparent);
+
+  /* Placeholder artwork palettes (used until real artwork exists). */
+  --art-1-from: color-mix(in srgb, var(--dl-orange) 55%, var(--dl-charcoal));
+  --art-1-to: color-mix(in srgb, var(--dl-orange) 12%, var(--dl-charcoal));
+  --art-2-from: color-mix(in srgb, var(--dl-lime) 38%, var(--dl-charcoal));
+  --art-2-to: color-mix(in srgb, var(--dl-lime) 8%, var(--dl-charcoal));
+  --art-3-from: color-mix(in srgb, var(--dl-green) 45%, var(--dl-charcoal));
+  --art-3-to: color-mix(in srgb, var(--dl-green) 10%, var(--dl-charcoal));
+  --art-4-from: color-mix(in srgb, var(--dl-offwhite) 30%, var(--dl-charcoal));
+  --art-4-to: color-mix(in srgb, var(--dl-offwhite) 6%, var(--dl-charcoal));
+  --art-5-from: color-mix(in srgb, var(--dl-orange) 30%, var(--dl-lime) 18%);
+  --art-5-to: color-mix(in srgb, var(--dl-charcoal) 88%, var(--dl-orange));
+
+  /* ---- Typography (rem-based so UI scales with the root size / TV scale) ---------------- */
+  --font-sans:
+    'Segoe UI Variable Text', 'Segoe UI', system-ui, -apple-system, 'Helvetica Neue', Arial,
+    sans-serif;
+  --font-display:
+    'Segoe UI Variable Display', 'Segoe UI', system-ui, -apple-system, 'Helvetica Neue', Arial,
+    sans-serif;
+  --text-size-xs: 0.8125rem;
+  --text-size-sm: 0.9375rem;
+  --text-size-md: 1.0625rem;
+  --text-size-lg: 1.3125rem;
+  --text-size-xl: 1.75rem;
+  --text-size-2xl: 2.5rem;
+  --text-size-hero: 3.25rem;
+
+  /* ---- Space, shape, depth, motion ----------------------------------------------------- */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4.5rem;
+
+  --radius-sm: 0.5rem;
+  --radius-md: 0.875rem;
+  --radius-lg: 1.25rem;
+  --radius-pill: 999px;
+
+  --target-size: 2.75rem;
+  --target-size-lg: 3.5rem;
+
+  --shadow-card:
+    0 0.125rem 0.25rem color-mix(in srgb, var(--dl-black) 40%, transparent),
+    0 0.5rem 1.25rem color-mix(in srgb, var(--dl-black) 28%, transparent);
+  --shadow-card-focus:
+    0 0 0 0.1875rem var(--focus-ring), 0 0 1.75rem 0.25rem var(--focus-glow),
+    0 1rem 2rem color-mix(in srgb, var(--dl-black) 45%, transparent);
+  --shadow-modal: 0 2rem 5rem color-mix(in srgb, var(--dl-black) 65%, transparent);
+
+  --motion-fast: 120ms;
+  --motion-base: 200ms;
+  --motion-ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+
+  --sidebar-width: 17rem;
+  --shelf-card-width: 19rem;
+
+  color-scheme: dark;
+}
+
+/* Television / large-display scale: one switch scales everything that uses rem. */
+:root[data-ui-scale='tv'] {
+  font-size: 125%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --motion-fast: 0ms;
+    --motion-base: 0ms;
+  }
+}

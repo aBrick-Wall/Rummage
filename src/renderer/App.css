@@ -1,0 +1,120 @@
+.rm-app {
+  display: grid;
+  grid-template-columns: var(--sidebar-width) minmax(0, 1fr);
+  height: 100%;
+  background:
+    radial-gradient(60rem 30rem at 85% -10%, var(--tv-glow), transparent 70%),
+    var(--background-primary);
+}
+
+.rm-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  padding: var(--space-5) var(--space-4);
+  background: var(--background-sunken);
+  border-right: 1px solid var(--border-subtle);
+}
+
+.rm-brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: 0 var(--space-2);
+}
+
+.rm-brand__name {
+  font-family: var(--font-display);
+  font-size: var(--text-size-xl);
+  font-weight: 850;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+}
+
+.rm-brand__byline {
+  margin-top: 2px;
+  color: var(--text-muted);
+  font-size: var(--text-size-xs);
+  font-weight: 600;
+}
+
+.rm-sidebar__nav {
+  display: grid;
+  gap: var(--space-1);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.rm-sidebar__footer {
+  margin-top: auto;
+  padding: 0 var(--space-2);
+  color: var(--text-subtle);
+  font-size: var(--text-size-xs);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.rm-main {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+}
+
+.rm-topbar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-4) var(--space-6);
+}
+
+.rm-content {
+  flex: 1;
+  min-height: 0;
+  padding: var(--space-3) var(--space-6) var(--space-7);
+  overflow-y: auto;
+  outline: none;
+  scroll-behavior: smooth;
+}
+
+.rm-screen-loading {
+  display: grid;
+  place-items: center;
+  min-height: 40vh;
+  color: var(--accent-primary);
+}
+
+.rm-muted {
+  color: var(--text-muted);
+}
+
+.rm-count {
+  margin-bottom: var(--space-3);
+  font-size: var(--text-size-sm);
+}
+
+.rm-load-more {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--space-5);
+}
+
+@media (max-width: 62rem) {
+  .rm-app {
+    --sidebar-width: 5.5rem;
+  }
+  .rm-brand > div,
+  .rm-nav-item__label,
+  .rm-sidebar__footer {
+    display: none;
+  }
+  .rm-brand {
+    justify-content: center;
+  }
+  .rm-nav-item {
+    justify-content: center;
+    padding: 0;
+  }
+}

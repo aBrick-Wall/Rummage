@@ -1,0 +1,12 @@
+.rm-brand-mark__tile {
+  fill: var(--accent-primary);
+}
+.rm-brand-mark__mask {
+  fill: var(--text-on-accent);
+}
+.rm-brand-mark__eye {
+  fill: var(--text-primary);
+}
+.rm-brand-mark__pupil {
+  fill: var(--text-on-accent);
+}

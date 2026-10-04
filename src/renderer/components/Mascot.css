@@ -1,0 +1,151 @@
+.rm-mascot {
+  --fur: color-mix(in srgb, var(--text-primary) 52%, var(--background-primary));
+  --fur-dark: color-mix(in srgb, var(--background-primary) 88%, var(--background-sunken));
+  --fur-light: color-mix(in srgb, var(--text-primary) 82%, var(--background-primary));
+  height: auto;
+  overflow: visible;
+}
+
+.rm-mascot__glow-a {
+  stop-color: var(--accent-secondary);
+  stop-opacity: 0.42;
+}
+.rm-mascot__glow-b {
+  stop-color: var(--accent-secondary);
+  stop-opacity: 0;
+}
+.rm-mascot__screen-a {
+  stop-color: var(--accent-primary);
+}
+.rm-mascot__screen-b {
+  stop-color: var(--accent-secondary);
+}
+
+.rm-mascot__floor {
+  fill: var(--background-sunken);
+  opacity: 0.7;
+}
+
+.rm-mascot__antenna {
+  stroke: var(--text-muted);
+  stroke-width: 3;
+  stroke-linecap: round;
+  fill: none;
+}
+.rm-mascot__antenna-tip {
+  fill: var(--accent-primary);
+}
+.rm-mascot__tv {
+  fill: var(--surface-card-hover);
+  stroke: var(--border-strong);
+  stroke-width: 2;
+}
+.rm-mascot__play {
+  fill: var(--text-on-accent);
+  opacity: 0.85;
+}
+.rm-mascot__knob {
+  fill: var(--background-sunken);
+  stroke: var(--text-muted);
+  stroke-width: 2;
+}
+.rm-mascot__vent {
+  stroke: var(--text-subtle);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+}
+
+.rm-mascot__fur {
+  fill: var(--fur);
+}
+.rm-mascot__belly,
+.rm-mascot__muzzle {
+  fill: var(--fur-light);
+}
+.rm-mascot__dark {
+  fill: var(--fur-dark);
+}
+.rm-mascot__tail {
+  fill: none;
+  stroke: var(--fur);
+  stroke-width: 30;
+  stroke-linecap: round;
+}
+.rm-mascot__tail-rings {
+  fill: none;
+  stroke: var(--fur-dark);
+  stroke-width: 30;
+  stroke-dasharray: 11 21;
+  stroke-dashoffset: 4;
+}
+.rm-mascot__eye {
+  fill: var(--text-primary);
+}
+.rm-mascot__pupil {
+  fill: var(--background-sunken);
+}
+.rm-mascot__bucket {
+  fill: var(--text-primary);
+}
+.rm-mascot__bucket-stripe {
+  stroke: var(--accent-secondary);
+  stroke-width: 9;
+  fill: none;
+}
+.rm-mascot__popcorn circle {
+  fill: color-mix(in srgb, var(--text-primary) 88%, var(--accent-primary));
+  stroke: color-mix(in srgb, var(--accent-secondary) 50%, var(--text-primary));
+  stroke-width: 1.5;
+}
+.rm-mascot__kernel {
+  fill: color-mix(in srgb, var(--text-primary) 88%, var(--accent-primary));
+}
+.rm-mascot__arm {
+  fill: none;
+  stroke: var(--fur);
+  stroke-width: 12;
+  stroke-linecap: round;
+}
+.rm-mascot__remote {
+  fill: var(--background-sunken);
+  stroke: var(--text-subtle);
+  stroke-width: 1.5;
+}
+.rm-mascot__remote-button {
+  fill: var(--accent-primary);
+}
+
+.rm-mascot--animated .rm-mascot__glow {
+  animation: rm-mascot-glow 4.5s ease-in-out infinite;
+}
+.rm-mascot--animated .rm-mascot__screen {
+  animation: rm-mascot-screen 4.5s ease-in-out infinite;
+}
+.rm-mascot--animated .rm-mascot__kernel {
+  animation: rm-mascot-nibble 3s ease-in-out infinite;
+}
+
+@keyframes rm-mascot-glow {
+  50% {
+    opacity: 0.6;
+  }
+}
+@keyframes rm-mascot-screen {
+  50% {
+    opacity: 0.82;
+  }
+}
+@keyframes rm-mascot-nibble {
+  45%,
+  55% {
+    transform: translate(-6px, 4px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rm-mascot--animated .rm-mascot__glow,
+  .rm-mascot--animated .rm-mascot__screen,
+  .rm-mascot--animated .rm-mascot__kernel {
+    animation: none;
+  }
+}

@@ -1,0 +1,22 @@
+.rm-shelf {
+  margin-bottom: var(--space-7);
+}
+
+.rm-shelf__track {
+  display: flex;
+  gap: var(--space-4);
+  margin: 0;
+  /* Padding leaves room for the focus glow and lift so cards are never clipped. */
+  padding: var(--space-3) var(--space-3) var(--space-5);
+  margin-inline: calc(var(--space-3) * -1);
+  list-style: none;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x proximity;
+  scroll-padding-inline: var(--space-3);
+  scroll-behavior: smooth;
+}
+
+.rm-shelf__cell {
+  display: contents;
+}
