@@ -1,0 +1,13 @@
+.rm-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+  gap: var(--space-5);
+  margin: 0;
+  padding: var(--space-3);
+  margin-inline: calc(var(--space-3) * -1);
+  list-style: none;
+}
+
+.rm-grid__cell {
+  min-width: 0;
+}

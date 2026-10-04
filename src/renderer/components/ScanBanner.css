@@ -1,0 +1,16 @@
+.rm-scan-banner {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-5);
+  padding: var(--space-3) var(--space-4);
+  background: var(--surface-warm);
+  border: 1px solid var(--border-subtle);
+  border-left: 0.25rem solid var(--accent-primary);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+}
+
+.rm-scan-banner .rm-spinner {
+  color: var(--accent-primary);
+}

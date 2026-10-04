@@ -1,0 +1,42 @@
+.rm-settings {
+  display: grid;
+  gap: var(--space-5);
+  max-width: 52rem;
+}
+
+.rm-settings__card {
+  padding: var(--space-5);
+}
+
+.rm-settings__heading {
+  margin-bottom: var(--space-3);
+  font-size: var(--text-size-lg);
+  font-weight: 750;
+}
+
+.rm-settings__tools {
+  display: grid;
+  gap: var(--space-2);
+  margin: var(--space-4) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.rm-settings__tools li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.rm-settings__about {
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+}
+
+.rm-settings__fineprint {
+  margin-top: var(--space-3);
+  max-width: 28rem;
+  font-size: var(--text-size-sm);
+}
